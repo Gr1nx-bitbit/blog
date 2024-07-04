@@ -1,4 +1,4 @@
-module blog
+module github.com/Gr1nx-bitbit/blog
 
 go 1.22.2
 

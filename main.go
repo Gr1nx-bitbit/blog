@@ -1,8 +1,8 @@
 package main
 
 import (
-	"blog/database"
-	"blog/server"
+	"github.com/Gr1nx-bitbit/blog/database"
+	"github.com/Gr1nx-bitbit/blog/server"
 )
 
 func main() {
