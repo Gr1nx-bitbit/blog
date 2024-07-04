@@ -1,0 +1,9 @@
+Task #1: java -jar executable.jar
+
+Task #2: documentation of commands. Some of the commands look just like the logic gates which is interesting.
+I wonder how and when implementing digital logic will look like. Is it the equivalent of branching and if else
+statement in higher level programming?
+
+Task #3: Give a description of what task3MIPSassemblylanguageprogram.s does in a file called task3desc.txt
+
+Task #4: Submit in canvas :)
