@@ -1,4 +1,4 @@
-package main
+package blog
 
 import (
 	"github.com/Gr1nx-bitbit/blog/database"
