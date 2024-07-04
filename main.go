@@ -9,3 +9,7 @@ func main() {
 	database.AddBlog("test", "./test.txt", "testComments")
 	server.Greet()
 }
+
+func Greet() {
+	server.Greet()
+}
