@@ -5,9 +5,8 @@ import (
 	"github.com/Gr1nx-bitbit/blog/server"
 )
 
-func Cool() {
+func main() {
 	database.AddBlog("test", "./test.txt", "testComments")
-	server.Greet()
 }
 
 func Greet() {
