@@ -3,10 +3,11 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"os"
 )
 
 func BlogInit(dbExists bool, dbPath string) *sql.DB {
-	return initializeBlogTable(false, "")
+	return initializeBlogTable(dbExists, "")
 }
 
 // assumes a db already exists and will return you an instance of a connection to it
@@ -37,5 +38,13 @@ func PrintBlogs(db *sql.DB) {
 		fmt.Println()
 		fmt.Println(commentTable)
 		fmt.Println()
+	}
+}
+
+func IsDB(dbPath string) bool {
+	if _, err := os.Stat(dbPath); err == nil {
+		return true
+	} else {
+		return false
 	}
 }

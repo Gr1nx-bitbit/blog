@@ -71,14 +71,6 @@ func initializeBlogTable(dbExists bool, dbPath string) (databaseInstance *sql.DB
 	}
 }
 
-func isDB(dbPath string) bool {
-	if _, err := os.Stat(dbPath); err == nil {
-		return true
-	} else {
-		return false
-	}
-}
-
 // this function will just add a new blog entry to the db. "blogName" is the name / title
 // of the blog while "blogFilePath" is the path to the blog's content in the file system
 // and "commentTable" is the unique name of the specific blog's table for comments. db is

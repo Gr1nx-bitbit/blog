@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	db := database.BlogInit(true, "") // is this not working because I need to use ADD instead of INSERT?
+	db := database.BlogInit(database.IsDB("./blog"), "") // is this not working because I need to use ADD instead of INSERT?
 	// database.AddBlog("test", "./test.txt", "testComments", db)
 	database.PrintBlogs(db)
 }
