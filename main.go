@@ -6,7 +6,9 @@ import (
 )
 
 func main() {
-	database.AddBlog("test", "./test.txt", "testComments")
+	db := database.BlogInit(true, "") // is this not working because I need to use ADD instead of INSERT?
+	// database.AddBlog("test", "./test.txt", "testComments", db)
+	database.PrintBlogs(db)
 }
 
 func Greet() {

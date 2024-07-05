@@ -2,7 +2,6 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
 	"os"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -80,13 +79,13 @@ func isDB(dbPath string) bool {
 	}
 }
 
-func addBlog(blogName string, file string, commentTable string) { // I want to return an err
-	db, err := sql.Open("sqlite3", "./blog.db")
-	if err != nil {
-		panic(err)
-	}
+// this function will just add a new blog entry to the db. "blogName" is the name / title
+// of the blog while "blogFilePath" is the path to the blog's content in the file system
+// and "commentTable" is the unique name of the specific blog's table for comments. db is
+// an instance of the database since it will have already been created
+func addBlog(blogName string, blogFilePath string, commentTable string, db *sql.DB) { // I want to return an err
 
-	byteContent, err := os.ReadFile(file)
+	byteContent, err := os.ReadFile(blogFilePath)
 	if err != nil {
 		panic(err)
 	}
@@ -105,25 +104,11 @@ func addBlog(blogName string, file string, commentTable string) { // I want to r
 
 }
 
-func dbPing() {
-	db, _ := sql.Open("sqlite3", "./blog.db")
-	err := db.Ping()
+func getBlogs(db *sql.DB) *sql.Rows {
+	rows, err := db.Query("SELECT * FROM Blogs")
 	if err != nil {
 		panic(err)
 	}
 
-	result, _ := db.Exec("CREATE TABLE IF NOT EXISTS Hello (id INTEGER PRIMARY KEY, First TEXT)")
-	fmt.Printf("create table result: %v\n", result)
-
-	statement, _ := db.Prepare("INSERT INTO Hello (First) VALUES (?)")
-	result, _ = statement.Exec("Tommy")
-	fmt.Println(result.RowsAffected())
-
-	rows, _ := db.Query("SELECT * FROM Hello")
-	var id int
-	var name string
-	for rows.Next() {
-		rows.Scan(&id, &name)
-		fmt.Println("id:", id, "name", name)
-	}
+	return rows
 }

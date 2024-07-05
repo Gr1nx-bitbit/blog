@@ -3,8 +3,6 @@ package database
 import (
 	"database/sql"
 	"fmt"
-
-	"github.com/google/uuid"
 )
 
 func BlogInit(dbExists bool, dbPath string) *sql.DB {
@@ -21,14 +19,23 @@ func Connect(driver string, dbPath string) *sql.DB {
 	return db
 }
 
-func AddBlog(blogName string, file string, commentTable string) {
-	// addBlog(blogName, file, commentTable)
-	// createBlogTable()
-	// getBlogs()
-	dbPing()
+func AddBlog(blogName string, file string, commentTable string, db *sql.DB) {
+	addBlog(blogName, file, commentTable, db)
 }
 
-func Rand() {
-	id := uuid.New()
-	fmt.Println(id.String())
+func PrintBlogs(db *sql.DB) {
+	rows := getBlogs(db)
+
+	var id int
+	var name string
+	var content string
+	var commentTable string
+
+	for rows.Next() {
+		rows.Scan(&id, &name, &content, &commentTable)
+		fmt.Println(content)
+		fmt.Println()
+		fmt.Println(commentTable)
+		fmt.Println()
+	}
 }
