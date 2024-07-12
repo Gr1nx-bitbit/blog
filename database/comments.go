@@ -11,12 +11,7 @@ import (
 func createCommentTable(db *sql.DB, blogName string) {
 	// sqlite doesn't have a boolean keyword. It instead sotres 0's and 1's as falses and trues, respectively. It can however recognize the
 	// TRUE and FALSE keyword so it'll automatically make those 0's and 1's.
-	statement, err := db.Prepare("CREATE TABLE IF NOT EXISTS ? (CommentID INTEGER PRIMARY KEY, OwnerReference INTEGER, Leaf INTEGER, Comment TEXT)")
-	if err != nil {
-		panic(err)
-	}
-
-	_, err = statement.Exec(blogName + "CommentTable")
+	_, err := db.Exec("CREATE TABLE IF NOT EXISTS " + blogName + "CommentTable" + " (\nCommentID INTEGER PRIMARY KEY,\n OwnerReference INTEGER,\n Leaf INTEGER,\n Comment TEXT\n)")
 	if err != nil {
 		panic(err)
 	}

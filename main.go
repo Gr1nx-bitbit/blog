@@ -7,6 +7,6 @@ import (
 
 func main() {
 	db := database.BlogInit(database.IsDB("./blog"), "") // is this not working because I need to use ADD instead of INSERT?
-	// database.AddBlog("test", "./test.txt", "testComments", db)
+	database.AddBlog("test", "./test.txt", db)
 	database.PrintBlogs(db)
 }

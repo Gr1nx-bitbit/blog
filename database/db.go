@@ -20,8 +20,8 @@ func Connect(driver string, dbPath string) *sql.DB {
 	return db
 }
 
-func AddBlog(blogName string, file string, commentTable string, db *sql.DB) {
-	addBlog(blogName, file, commentTable, db)
+func AddBlog(blogName string, file string, db *sql.DB) {
+	addBlog(blogName, file, db)
 }
 
 func PrintBlogs(db *sql.DB) {
