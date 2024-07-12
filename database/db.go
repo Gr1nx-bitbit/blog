@@ -7,7 +7,7 @@ import (
 )
 
 func BlogInit(dbExists bool, dbPath string) *sql.DB {
-	return initializeBlogTable(dbExists, "")
+	return initializeBlogTable(dbExists, dbPath)
 }
 
 // assumes a db already exists and will return you an instance of a connection to it

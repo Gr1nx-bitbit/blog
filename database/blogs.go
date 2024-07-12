@@ -21,7 +21,7 @@ func initializeBlogTable(dbExists bool, dbPath string) (databaseInstance *sql.DB
 				panic(err)
 			}
 
-			_, err = db.Exec("CREATE TABLE IF NOT EXISTS Blogs (BlogID INTEGER PRIMARY KEY, BlogName TEXT, BlogContent TEXT, CommentTable TEXT)")
+			_, err = db.Exec("CREATE TABLE IF NOT EXISTS Blogs (BlogID INTEGER PRIMARY KEY,\n BlogName TEXT,\n BlogContent TEXT,\n CommentTable TEXT\n)")
 			if err != nil {
 				panic(err)
 			}
@@ -34,7 +34,7 @@ func initializeBlogTable(dbExists bool, dbPath string) (databaseInstance *sql.DB
 				panic(err)
 			}
 
-			_, err = db.Exec("CREATE TABLE IF NOT EXISTS Blogs (BlogID INTEGER PRIMARY KEY, BlogName TEXT, BlogContent TEXT, CommentTable TEXT)")
+			_, err = db.Exec("CREATE TABLE IF NOT EXISTS Blogs (BlogID INTEGER PRIMARY KEY,\n BlogName TEXT,\n BlogContent TEXT,\n CommentTable TEXT\n)")
 			if err != nil {
 				panic(err)
 			}
@@ -49,7 +49,7 @@ func initializeBlogTable(dbExists bool, dbPath string) (databaseInstance *sql.DB
 				panic(err)
 			}
 
-			_, err = db.Exec("CREATE TABLE IF NOT EXISTS Blogs (BlogID INTEGER PRIMARY KEY, BlogName TEXT, BlogContent TEXT, CommentTable TEXT)")
+			_, err = db.Exec("CREATE TABLE IF NOT EXISTS Blogs (BlogID INTEGER PRIMARY KEY,\n BlogName TEXT,\n BlogContent TEXT,\n CommentTable TEXT\n)")
 			if err != nil {
 				panic(err)
 			}
@@ -61,7 +61,7 @@ func initializeBlogTable(dbExists bool, dbPath string) (databaseInstance *sql.DB
 				panic(err)
 			}
 
-			_, err = db.Exec("CREATE TABLE IF NOT EXISTS Blogs (BlogID INTEGER PRIMARY KEY, BlogName TEXT, BlogContent TEXT, CommentTable TEXT)")
+			_, err = db.Exec("CREATE TABLE IF NOT EXISTS Blogs (BlogID INTEGER PRIMARY KEY,\n BlogName TEXT,\n BlogContent TEXT,\n CommentTable TEXT\n)")
 			if err != nil {
 				panic(err)
 			}
@@ -72,9 +72,8 @@ func initializeBlogTable(dbExists bool, dbPath string) (databaseInstance *sql.DB
 }
 
 // this function will just add a new blog entry to the db. "blogName" is the name / title
-// of the blog while "blogFilePath" is the path to the blog's content in the file system
-// and "commentTable" is the unique name of the specific blog's table for comments. db is
-// an instance of the database since it will have already been created
+// of the blog while "blogFilePath" is the path to the blog's content in the file system.
+// db is an instance of the database since it will have already been created
 func addBlog(blogName string, blogFilePath string, commentTable string, db *sql.DB) { // I want to return an err
 
 	byteContent, err := os.ReadFile(blogFilePath)
@@ -93,6 +92,8 @@ func addBlog(blogName string, blogFilePath string, commentTable string, db *sql.
 	if err != nil {
 		panic(err)
 	}
+
+	createCommentTable(db, blogName)
 
 }
 
