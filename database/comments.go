@@ -5,6 +5,9 @@ import (
 	"fmt"
 )
 
+type CommentTable struct {
+}
+
 // this function will be called whenever a new blog is made so
 // it doesn't have to be exported. Just pass in a db instance
 // and the name of the blog. remember, the blog name has to be
@@ -18,6 +21,9 @@ func createCommentTable(db *sql.DB, blogName string) {
 	}
 }
 
+// if the comment is a root comment (at the highest level), the owner reference
+// will be -1. "tableName" is the name of the comment table where the comment is
+// to be put.
 func addComment(tableName string, ownerRef int, comment string, db *sql.DB) {
 	// we have to check whether the comment is a leaf
 	rows, err := db.Query("SELECT HasChildren FROM " + tableName + " WHERE CommentID='" + string(ownerRef) + "'")
@@ -34,6 +40,24 @@ func addComment(tableName string, ownerRef int, comment string, db *sql.DB) {
 		fmt.Println("Children Present")
 	} else {
 		fmt.Println("This comment is a first child and leaf.")
+		_, err = db.Exec("UPDATE " + tableName + " SET HasChildren='TRUE', Leaf='FALSE' WHERE CommentID='" + string(ownerRef) + "'")
+		if err != nil {
+			panic(err)
+		}
 	}
 
+	statement, err := db.Prepare("INSERT INTO " + tableName + "(OwnerReference, HasChildren, Leaf, Comment) VALUES(?,?,?,?)")
+	if err != nil {
+		panic(err)
+	}
+
+	_, err = statement.Exec(ownerRef, 0, 1, comment)
+	if err != nil {
+		panic(err)
+	}
+
+}
+
+func getComments() CommentTable {
+	return CommentTable{}
 }

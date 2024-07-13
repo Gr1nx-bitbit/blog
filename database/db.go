@@ -49,6 +49,13 @@ func PrintBlogs(db *sql.DB) {
 	}
 }
 
+// the owner ref is simply the ID of the parent comment however, how do we know
+// if that comment is a root comment? We know we want it to have a value of -1
+// if it doesn't have an owner, but how do we actually figure that out??
+func AddComment(tableName string, ownerRef int, commment string, db *sql.DB) {
+	addComment(tableName, ownerRef, commment, db)
+}
+
 func IsDB(dbPath string) bool {
 	if _, err := os.Stat(dbPath); err == nil {
 		return true
