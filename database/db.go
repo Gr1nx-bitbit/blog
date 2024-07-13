@@ -33,7 +33,7 @@ func AddBlog(blogName string, file string, db *sql.DB) {
 }
 
 func PrintBlogs(db *sql.DB) {
-	rows := getBlogs(db)
+	rows := GetBlogs(db)
 
 	var id int
 	var name string

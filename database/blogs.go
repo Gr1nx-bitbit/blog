@@ -97,8 +97,18 @@ func addBlog(blogName string, blogFilePath string, db *sql.DB) { // I want to re
 
 }
 
-func getBlogs(db *sql.DB) *sql.Rows {
+func GetBlogs(db *sql.DB) *sql.Rows {
 	rows, err := db.Query("SELECT * FROM Blogs")
+	if err != nil {
+		panic(err)
+	}
+
+	return rows
+}
+
+// YOU have to check if the pointer is nil or not!
+func GetBlog(blogName string, db *sql.DB) *sql.Rows {
+	rows, err := db.Query("SELECT BlogContent FROM Blogs WHERE BlogName='" + blogName + "'")
 	if err != nil {
 		panic(err)
 	}

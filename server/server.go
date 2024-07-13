@@ -3,6 +3,7 @@ package server
 import (
 	"net/http"
 
+	"github.com/Gr1nx-bitbit/blog/database"
 	"github.com/gin-gonic/gin"
 )
 
@@ -29,17 +30,31 @@ time we upload something new) I think we just use a for loop or a range and just
 on that route specified in the DB – seems like that's another thing I have to add to the Blogs table.
 */
 
-type Page struct {
-	Title string
-	Code  int
+type Blog struct {
+	Title   string
+	Content string
 }
 
 func test(c *gin.Context) {
-	page := Page{
-		Title: "Hello!",
-		Code:  3,
+	content := Blog{
+		Title:   "test",
+		Content: getBlogContent("test"),
 	}
-	c.HTML(http.StatusOK, "blog-layout.html", page)
+	c.HTML(http.StatusOK, "blog-layout.html", content)
+}
+
+func getBlogContent(blogName string) string {
+	db := database.Connect("sqlite3", "./blog.db")
+	rows := database.GetBlog(blogName, db)
+
+	var content string
+	if rows != nil {
+		for rows.Next() {
+			rows.Scan(&content)
+		}
+	}
+
+	return content
 }
 
 func Serve() {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{ .Title }}</title>
     <!-- <link rel="stylesheet" href="../styles/styles.css">
     <script src="../scripts/script.js"></script> -->
     <style>
@@ -28,7 +28,7 @@
 <body>
     <div name="blog">
         <h2>Test</h2>
-        <article name="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quam consectetur laborum iste natus numquam sequi tenetur officia et temporibus pariatur, eaque sunt quia eum molestiae blanditiis similique. Fuga, debitis.</article>
+        <article name="content">{{ .Content }}</article>
     </div>
 
     <!-- So for each subcomment, we'll have to move it a tab or 2 spaces to the right of its parent.
