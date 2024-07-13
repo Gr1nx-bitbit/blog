@@ -30,13 +30,13 @@ time we upload something new) I think we just use a for loop or a range and just
 on that route specified in the DB – seems like that's another thing I have to add to the Blogs table.
 */
 
-type Blog struct {
-	Title   string
-	Content string
+type Article struct {
+	Blob     database.Blog
+	Comments []database.Comment
 }
 
 func test(c *gin.Context) {
-	content := Blog{
+	content := database.Blog{
 		Title:   "test",
 		Content: getBlogContent("test"),
 	}

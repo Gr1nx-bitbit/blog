@@ -7,6 +7,11 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+type Blog struct {
+	Title   string
+	Content string
+}
+
 // this function can be used to initialize a blog table in the database which
 // there will ever only be ONE of. We can add some error handiling where it
 // will check a specific path provided for a db instead of relying on the user.

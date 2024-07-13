@@ -5,7 +5,10 @@ import (
 	"fmt"
 )
 
-type CommentTable struct {
+type Comment struct {
+	ID       int
+	OwnerRef int
+	Comment  string
 }
 
 func recoverFromPanic() {
@@ -71,8 +74,4 @@ func addComment(tableName string, ownerRef int, comment string, db *sql.DB) {
 		panic(err)
 	}
 
-}
-
-func getComments() CommentTable {
-	return CommentTable{}
 }
