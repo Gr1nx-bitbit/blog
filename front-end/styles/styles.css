@@ -1,0 +1,11 @@
+.Comment{
+    padding-left: 25px;
+    margin: 1px;
+    float:left;
+}
+
+.SubComment{
+    padding-left: 50px;
+    float: left;
+    margin: 1px;
+}
