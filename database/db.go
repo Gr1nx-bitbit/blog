@@ -52,6 +52,12 @@ func PrintBlogs(db *sql.DB) {
 // the owner ref is simply the ID of the parent comment however, how do we know
 // if that comment is a root comment? We know we want it to have a value of -1
 // if it doesn't have an owner, but how do we actually figure that out??
+// Maybe the action of submitting a comment can call two different functions?
+// If you submit a subcomment, it'll provide an owner-ref but if you create a root
+// comment, it'll default the owner-ref to -1? It seems like we need help from the
+// front end side, we can't just magically tell whether a comment is root or sub
+// unless it's specified. Yeah, we just have to pass in that piece of data from the
+// front end
 func AddComment(tableName string, ownerRef int, commment string, db *sql.DB) {
 	addComment(tableName, ownerRef, commment, db)
 }

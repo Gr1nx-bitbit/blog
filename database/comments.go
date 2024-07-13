@@ -8,6 +8,12 @@ import (
 type CommentTable struct {
 }
 
+func recoverFromPanic() {
+	if r := recover(); r != nil {
+		fmt.Println("Recovered:", r)
+	}
+}
+
 // this function will be called whenever a new blog is made so
 // it doesn't have to be exported. Just pass in a db instance
 // and the name of the blog. remember, the blog name has to be
@@ -25,22 +31,31 @@ func createCommentTable(db *sql.DB, blogName string) {
 // will be -1. "tableName" is the name of the comment table where the comment is
 // to be put.
 func addComment(tableName string, ownerRef int, comment string, db *sql.DB) {
+
+	defer recoverFromPanic() // in case there are no comments, the program won't crash
 	// we have to check whether the comment is a leaf
-	rows, err := db.Query("SELECT HasChildren FROM " + tableName + " WHERE CommentID='" + string(ownerRef) + "'")
-	if err != nil {
-		panic(err)
+	var rows *sql.Rows
+	var err error
+	if ownerRef != -1 {
+		rows, err = db.Query("SELECT HasChildren FROM " + tableName + " WHERE CommentID='" + string(ownerRef) + "'")
+		if err != nil {
+			panic(err)
+		}
 	}
 
-	var children int
-	for rows.Next() {
-		rows.Scan(&children)
+	var children int = 0
+
+	if rows != nil {
+		for rows.Next() {
+			rows.Scan(&children)
+		}
 	}
 
 	if children == 1 {
 		fmt.Println("Children Present")
 	} else {
 		fmt.Println("This comment is a first child and leaf.")
-		_, err = db.Exec("UPDATE " + tableName + " SET HasChildren='TRUE', Leaf='FALSE' WHERE CommentID='" + string(ownerRef) + "'")
+		_, err := db.Exec("UPDATE " + tableName + " SET HasChildren='TRUE', Leaf='FALSE' WHERE CommentID='" + string(ownerRef) + "'")
 		if err != nil {
 			panic(err)
 		}
