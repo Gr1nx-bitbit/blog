@@ -8,8 +8,9 @@ import (
 )
 
 type Blog struct {
-	Title   string
-	Content string
+	Title        string
+	Content      string
+	CommentTable string
 }
 
 // this function can be used to initialize a blog table in the database which

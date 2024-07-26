@@ -31,7 +31,7 @@ on that route specified in the DB – seems like that's another thing I have to 
 */
 
 type Article struct {
-	Blob     database.Blog
+	Blog     database.Blog
 	Comments []database.Comment
 }
 
