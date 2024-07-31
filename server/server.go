@@ -40,6 +40,7 @@ func test(c *gin.Context) {
 		Title:   "test",
 		Content: getBlogContent("test"),
 	}
+	// instead of directly sending this to the html, we just have to return a JSON package
 	c.HTML(http.StatusOK, "blog-layout.html", content)
 }
 
